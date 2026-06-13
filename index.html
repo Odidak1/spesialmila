@@ -2,237 +2,543 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Maafin Aku 🥺</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-* {
-    box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-body {
-    margin: 0;
-    background: radial-gradient(circle at top, #1a1a1a, #000);
-    color: #fff;
-    height: 100vh;
-    overflow: hidden;
+:root {
+  --plum:      #2D0035;
+  --deep:      #4A0060;
+  --mauve:     #C77DFF;
+  --blush:     #FFB6C1;
+  --rose:      #E8A0BF;
+  --cream:     #FFF0F5;
+  --accent:    #FF6FA8;
 }
 
-/* bunga jatuh */
-.flower {
-    position: fixed;
-    top: -20px;
-    font-size: 20px;
-    animation: fall linear infinite;
-    opacity: 0.8;
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 30% 0%, #4A0060 0%, #2D0035 55%, #1a001f 100%);
+  color: var(--cream);
+  font-family: 'Nunito', sans-serif;
+  touch-action: none;
 }
 
-@keyframes fall {
-    to {
-        transform: translateY(110vh);
-    }
+/* ── PETALS ── */
+.petal {
+  position: fixed;
+  top: -40px;
+  pointer-events: none;
+  user-select: none;
+  animation: drift linear forwards;
+  opacity: 0;
+  font-size: 18px;
+  z-index: 0;
 }
 
-/* halaman 1 */
+@keyframes drift {
+  0%   { transform: translateY(0)   translateX(0)   rotate(0deg);   opacity: 0; }
+  8%   { opacity: .9; }
+  85%  { opacity: .7; }
+  100% { transform: translateY(108vh) translateX(var(--sway)) rotate(360deg); opacity: 0; }
+}
+
+/* ── SHIMMER OVERLAY ── */
+.shimmer-ring {
+  position: absolute;
+  inset: -2px;
+  border-radius: 26px;
+  background: conic-gradient(from 0deg, #C77DFF, #FF6FA8, #FFB6C1, #E8A0BF, #C77DFF);
+  animation: spin 4s linear infinite;
+  z-index: -1;
+  filter: blur(3px);
+  opacity: .55;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── PAGE 1 ── */
 #page1 {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+  position: relative;
+  z-index: 1;
+  height: 100dvh;
+  height: 100vh; /* fallback */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 20px;
+}
+
+.card-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
 }
 
 .card {
-    width: 100%;
-    max-width: 350px;
-    background: rgba(255,255,255,0.05);
-    border-radius: 20px;
-    padding: 30px;
-    text-align: center;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 0 25px rgba(255,255,255,0.1);
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 240, 245, 0.08);
+  border-radius: 24px;
+  padding: 32px 24px 28px;
+  text-align: center;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,182,193,0.25);
 }
 
-h1 {
-    font-size: 20px;
-    margin-bottom: 20px;
-    line-height: 1.4;
-    text-shadow: 0 0 10px rgba(255,255,255,0.7);
+.emoji-top {
+  font-size: 52px;
+  display: block;
+  margin-bottom: 12px;
+  animation: bob 2.5s ease-in-out infinite;
 }
 
-/* tombol */
-button {
-    width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    border: none;
-    border-radius: 12px;
-    font-size: 15px;
-    cursor: pointer;
+@keyframes bob {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+
+.card h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.45;
+  margin-bottom: 8px;
+  color: var(--cream);
+  text-shadow: 0 0 20px rgba(199,125,255,.6);
+}
+
+.card p {
+  font-size: 13px;
+  color: rgba(255,240,245,.55);
+  margin-bottom: 26px;
+  font-style: italic;
+}
+
+/* button container so NO has space to run */
+.btn-area {
+  position: relative;
+  min-height: 110px;
+  width: 100%;
 }
 
 #yes {
-    background: #00c853;
-    color: white;
-    box-shadow: 0 0 10px #00c853;
+  display: block;
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 14px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  background: linear-gradient(135deg, #FF6FA8, #C77DFF);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(255,111,168,.5);
+  letter-spacing: .3px;
+  transition: transform .15s, box-shadow .15s;
+}
+
+#yes:active {
+  transform: scale(.97);
+  box-shadow: 0 2px 10px rgba(255,111,168,.4);
 }
 
 #no {
-    background: #d50000;
-    color: white;
-    position: absolute;
-    box-shadow: 0 0 10px #d50000;
+  position: absolute;
+  /* start below yes button */
+  top: 52px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 14px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  background: rgba(255,255,255,.07);
+  color: rgba(255,240,245,.6);
+  border: 1px solid rgba(255,182,193,.2);
+  transition: left .1s, top .1s;
+  z-index: 10;
 }
 
-/* halaman 2 */
+/* ── PAGE 2 ── */
 #page2 {
-    display: none;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 20px;
+  display: none;
+  position: relative;
+  z-index: 1;
+  height: 100dvh;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 16px;
+  gap: 18px;
 }
 
-.magic-text {
-    margin-bottom: 15px;
-    font-size: 14px;
-    text-align: center;
-    text-shadow: 0 0 10px #fff;
+.magic-label {
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--mauve);
+  text-shadow: 0 0 12px rgba(199,125,255,.7);
 }
 
-/* kalkulator */
-.calculator {
-    background: #111;
-    padding: 20px;
-    border-radius: 20px;
-    box-shadow: 0 0 25px rgba(255,255,255,0.1);
+.calc-shell {
+  width: 100%;
+  max-width: 300px;
+  background: rgba(255,240,245,.06);
+  border: 1px solid rgba(255,182,193,.2);
+  border-radius: 22px;
+  padding: 18px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 #display {
-    width: 100%;
-    height: 45px;
-    margin-bottom: 10px;
-    text-align: right;
-    font-size: 18px;
-    padding: 8px;
-    border: none;
-    border-radius: 10px;
-    background: #000;
-    color: #0f0;
+  display: block;
+  width: 100%;
+  height: 48px;
+  text-align: right;
+  font-size: 16px;
+  padding: 0 12px;
+  margin-bottom: 12px;
+  border: 1px solid rgba(255,182,193,.2);
+  border-radius: 12px;
+  background: rgba(45,0,53,.6);
+  color: var(--mauve);
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
+  outline: none;
+  caret-color: transparent;
+}
+
+.calc-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
 }
 
 .calc-btn {
-    width: 22%;
-    height: 50px;
-    margin: 1%;
-    font-size: 16px;
-    border-radius: 10px;
-    border: none;
-    background: #222;
-    color: white;
-    cursor: pointer;
+  height: 52px;
+  border: none;
+  border-radius: 12px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  background: rgba(255,240,245,.08);
+  color: var(--cream);
+  border: 1px solid rgba(255,182,193,.12);
+  transition: background .12s, transform .1s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.calc-btn:active {
+  background: rgba(199,125,255,.25);
+  transform: scale(.93);
+}
+
+.calc-btn.op {
+  background: rgba(199,125,255,.18);
+  color: var(--mauve);
+}
+
+.calc-btn.eq {
+  background: linear-gradient(135deg, #FF6FA8, #C77DFF);
+  color: #fff;
+  box-shadow: 0 3px 14px rgba(255,111,168,.45);
+}
+
+.calc-btn.cl {
+  background: rgba(255,111,168,.15);
+  color: var(--blush);
+}
+
+.result-note {
+  font-size: 12px;
+  color: rgba(255,240,245,.35);
+  font-style: italic;
+}
+
+/* ── ERROR POPUP ── */
+#error-popup {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+
+.error-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.error-box {
+  position: relative;
+  z-index: 1;
+  background: #1a0020;
+  border: 1px solid rgba(255,100,100,.35);
+  border-radius: 20px;
+  padding: 24px 22px 20px;
+  max-width: 280px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(255,50,50,.2), 0 8px 32px rgba(0,0,0,.5);
+  animation: popIn .3s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes popIn {
+  0%   { transform: scale(.7); opacity: 0; }
+  70%  { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+.error-icon {
+  font-size: 44px;
+  display: block;
+  margin-bottom: 10px;
+  animation: shake .4s ease .2s both;
+}
+
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  20%      { transform: translateX(-6px) rotate(-3deg); }
+  40%      { transform: translateX(6px)  rotate(3deg); }
+  60%      { transform: translateX(-4px) rotate(-2deg); }
+  80%      { transform: translateX(4px)  rotate(2deg); }
+}
+
+.error-title {
+  font-family: 'Nunito', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #ff6b6b;
+  margin-bottom: 6px;
+}
+
+.error-msg {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  color: var(--cream);
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+.error-sub {
+  font-size: 12px;
+  color: rgba(255,240,245,.4);
+  margin-bottom: 18px;
+  font-style: italic;
+}
+
+.error-btn {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  background: linear-gradient(135deg, #FF6FA8, #C77DFF);
+  color: #fff;
+  box-shadow: 0 3px 14px rgba(255,111,168,.4);
+}
+
+/* ── DISPLAY special state ── */
+#display.love-state {
+  font-size: 11px;
+  text-align: center;
+  color: #FF6FA8;
+  letter-spacing: .5px;
+  text-shadow: 0 0 10px rgba(255,111,168,.6);
 }
 </style>
 </head>
-
 <body>
 
-<!-- bunga -->
-<script>
-function createFlower() {
-    const flower = document.createElement("div");
-    flower.classList.add("flower");
-    flower.innerText = "🌸";
-
-    flower.style.left = Math.random() * 100 + "vw";
-    flower.style.animationDuration = (3 + Math.random() * 5) + "s";
-
-    document.body.appendChild(flower);
-
-    setTimeout(() => {
-        flower.remove();
-    }, 8000);
-}
-
-setInterval(createFlower, 400);
-</script>
-
-<!-- halaman 1 -->
+<!-- PAGE 1 -->
 <div id="page1">
+  <div class="card-wrap">
+    <div class="shimmer-ring"></div>
     <div class="card">
-        <h1>aku minta maaf yaa 🥺<br>apakah di maafin?</h1>
+      <span class="emoji-top">🥺</span>
+      <h1>aku minta maaf ya sayang…</h1>
+      <p>beneran dari hati, bukan basa-basi 💕</p>
+
+      <div class="btn-area">
         <button id="yes">iya dimaafin 💖</button>
-        <button id="no">tidak 😡</button>
+        <button id="no">enggak 😤</button>
+      </div>
     </div>
+  </div>
 </div>
 
-<!-- halaman 2 -->
+<!-- PAGE 2 -->
 <div id="page2">
-    <div class="magic-text">✨ coba gunakan kalkulator ajaib ini ✨</div>
+  <p class="magic-label">✨ kalkulator ajaib ✨</p>
 
-    <div class="calculator">
-        <input type="text" id="display" disabled><br>
+  <div class="calc-shell">
+    <input type="text" id="display" readonly value="">
 
-        <button class="calc-btn" onclick="add('1')">1</button>
-        <button class="calc-btn" onclick="add('2')">2</button>
-        <button class="calc-btn" onclick="add('3')">3</button>
-        <button class="calc-btn" onclick="add('+')">+</button>
+    <div class="calc-grid">
+      <button class="calc-btn" onclick="add('7')">7</button>
+      <button class="calc-btn" onclick="add('8')">8</button>
+      <button class="calc-btn" onclick="add('9')">9</button>
+      <button class="calc-btn op" onclick="add('÷')">÷</button>
 
-        <button class="calc-btn" onclick="add('4')">4</button>
-        <button class="calc-btn" onclick="add('5')">5</button>
-        <button class="calc-btn" onclick="add('6')">6</button>
-        <button class="calc-btn" onclick="add('-')">-</button>
+      <button class="calc-btn" onclick="add('4')">4</button>
+      <button class="calc-btn" onclick="add('5')">5</button>
+      <button class="calc-btn" onclick="add('6')">6</button>
+      <button class="calc-btn op" onclick="add('×')">×</button>
 
-        <button class="calc-btn" onclick="add('7')">7</button>
-        <button class="calc-btn" onclick="add('8')">8</button>
-        <button class="calc-btn" onclick="add('9')">9</button>
-        <button class="calc-btn" onclick="add('*')">*</button>
+      <button class="calc-btn" onclick="add('1')">1</button>
+      <button class="calc-btn" onclick="add('2')">2</button>
+      <button class="calc-btn" onclick="add('3')">3</button>
+      <button class="calc-btn op" onclick="add('−')">−</button>
 
-        <button class="calc-btn" onclick="add('0')">0</button>
-        <button class="calc-btn" onclick="clearDisplay()">C</button>
-        <button class="calc-btn" onclick="result()">=</button>
-        <button class="calc-btn" onclick="add('/')">/</button>
+      <button class="calc-btn" onclick="add('0')">0</button>
+      <button class="calc-btn" onclick="add('.')">.</button>
+      <button class="calc-btn cl" onclick="clearDisp()">C</button>
+      <button class="calc-btn op" onclick="add('+')">+</button>
+
+      <button class="calc-btn eq" style="grid-column:span 4" onclick="showResult()">=</button>
     </div>
+  </div>
+
+  <p class="result-note">coba tekan = dulu 🌸</p>
+</div>
+
+<!-- ERROR POPUP (tombol tidak) -->
+<div id="error-popup">
+  <div class="error-backdrop" onclick="closeError()"></div>
+  <div class="error-box">
+    <span class="error-icon">⚠️</span>
+    <div class="error-title">Error 404</div>
+    <div class="error-msg">Pilihan ini tidak tersedia 😤</div>
+    <div class="error-sub">maaf ya, tombol "tidak" lagi error terus nih…</div>
+    <button class="error-btn" onclick="closeError()">oke deh, maafin aja 💖</button>
+  </div>
 </div>
 
 <script>
-// tombol NO kabur
-const noBtn = document.getElementById("no");
+/* ── PETALS ── */
+const PETALS = ['🌸','🌷','🩷','✿','💗','🌺','💮'];
 
-noBtn.addEventListener("touchstart", moveNo);
-noBtn.addEventListener("mouseover", moveNo);
+function spawnPetal() {
+  const el = document.createElement('div');
+  el.classList.add('petal');
+  el.textContent = PETALS[Math.floor(Math.random() * PETALS.length)];
 
-function moveNo() {
-    const x = Math.random() * (window.innerWidth - 100);
-    const y = Math.random() * (window.innerHeight - 60);
+  const size = 14 + Math.random() * 14;
+  el.style.fontSize = size + 'px';
+  el.style.left = (Math.random() * 100) + 'vw';
 
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
+  const dur = 5 + Math.random() * 6;
+  el.style.animationDuration = dur + 's';
+
+  const sway = (Math.random() * 80 - 40) + 'px';
+  el.style.setProperty('--sway', sway);
+
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), dur * 1000 + 200);
 }
 
-// tombol YES
-document.getElementById("yes").onclick = () => {
-    document.getElementById("page1").style.display = "none";
-    document.getElementById("page2").style.display = "flex";
-};
+setInterval(spawnPetal, 350);
 
-// kalkulator
-let display = document.getElementById("display");
+/* ── NO BUTTON ESCAPE ── */
+const noBtn  = document.getElementById('no');
+const btnArea = noBtn.parentElement;
 
-function add(val) {
-    display.value += val;
+function escapeNo() {
+  const areaW = btnArea.offsetWidth;
+  const areaH = btnArea.offsetHeight;
+  const btnW  = noBtn.offsetWidth;
+  const btnH  = noBtn.offsetHeight;
+
+  const maxX = areaW - btnW;
+  const maxY = areaH - btnH;
+
+  const newX = Math.random() * maxX;
+  const newY = Math.random() * maxY;
+
+  noBtn.style.left  = newX + 'px';
+  noBtn.style.top   = newY + 'px';
+  noBtn.style.right = 'auto';
 }
 
-function clearDisplay() {
-    display.value = "";
+noBtn.addEventListener('mouseover', escapeNo);
+noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); escapeNo(); }, { passive: false });
+
+// After 5 escape attempts, clicking no shows error popup
+let noClickCount = 0;
+noBtn.addEventListener('click', () => {
+  noClickCount++;
+  if (noClickCount >= 3) {
+    document.getElementById('error-popup').style.display = 'flex';
+  } else {
+    escapeNo();
+  }
+});
+
+function closeError() {
+  document.getElementById('error-popup').style.display = 'none';
 }
 
-function result() {
-    display.value = "I LOVE YOU MILAA 💐";
+/* ── YES → PAGE 2 ── */
+document.getElementById('yes').addEventListener('click', () => {
+  document.getElementById('page1').style.display = 'none';
+  const p2 = document.getElementById('page2');
+  p2.style.display = 'flex';
+});
+
+/* ── CALCULATOR ── */
+const disp = document.getElementById('display');
+
+function add(v) {
+  if (disp.value.length > 14) return;
+  disp.value += v;
+}
+
+function clearDisp() {
+  disp.value = '';
+  disp.classList.remove('love-state');
+}
+
+function showResult() {
+  disp.value = 'I LOVE YOU MILAA 💐';
+  disp.classList.add('love-state');
+  // burst of petals
+  for (let i = 0; i < 20; i++) {
+    setTimeout(spawnPetal, i * 70);
+  }
 }
 </script>
-
 </body>
 </html>
